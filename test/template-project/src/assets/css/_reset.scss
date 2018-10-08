@@ -1,0 +1,52 @@
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, menu, nav, section, time, mark, audio, video, details, summary {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: -apple-system-font, 'Helvetica Neue', Helvetica, STHeiTi, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    width: 100%;
+    background: transparent;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    position: relative;
+}
+
+html {
+    overflow: auto;
+    height: 100%;
+}
+body {
+    min-height: 100%;
+}
+
+button, input {
+    font-family: -apple-system-font, 'Helvetica Neue', Helvetica, STHeiTi, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #0079FF;
+}
+
+ol, ul  {
+    list-style: none;
+}
+
+i {
+    font-style: normal;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent; 
+    -webkit-focus-ring-color: transparent; 
+    outline: none;
+}
+
+.hide {
+    display: none;
+}
+

@@ -1,0 +1,28 @@
+{
+    "builderType": "builder-webpack3",
+    "builderOptions": {
+        "moduleName": "mobile",
+        "bizName": "category",
+        "minifyHTML": true,
+        "minifyCSS": true,
+        "minifyJS": true,
+        "inlineCSS": true,
+        "usePx2rem": false,
+        "remUnit": 102,
+        "remPrecision": 6,
+        "inject": true,
+        "port": 8003,
+        "externals": [
+            {
+                "module": "react",
+                "entry": "https://11.url.cn/now/lib/16.2.0/react.min.js?_bid=3123",
+                "global": "React"
+            },
+            {
+                "module": "react-dom",
+                "entry": "https://11.url.cn/now/lib/16.2.0/react-dom.min.js?_bid=3123",
+                "global": "ReactDOM"
+            }
+        ]
+    }
+}

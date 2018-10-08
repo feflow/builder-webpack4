@@ -1,0 +1,145 @@
+@import "/assets/css/reset";
+@import "/assets/css/mixin";
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+#container {
+    &.show {
+        visibility: visible;
+    }
+}
+#content {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+
+    &:before {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        min-height: 300px;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 15, .2));
+        content: "";
+    }
+}
+
+
+#statusbarmask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    background: rgba(0, 0, 0, .4);
+    pointer-events: none;
+}
+.message-bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-height: 250px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(75, 75, 75, .6))
+}
+body.statusbar {
+    #statusbarmask {
+        height: 75px;
+        display: block;
+    }
+    &.ios {
+        #statusbarmask {
+            height: 65px;
+        }
+    }
+}
+body.statustitle {
+    #statusbarmask {
+        height: 50px;
+        display: block;
+    }
+}
+.icon-avatar {
+    background-color: #14CC98;
+}
+.icon-load {
+}
+.icon-logo {
+    width: 36px;
+    height: 36px;
+}
+.icon-play {
+    width: 80px;
+    height: 80px;
+}
+.icon-toplist {
+    @mixin icontop {
+        content: "";
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+    }
+    &:nth-child(1) {
+        &:after {
+            @include icontop();
+        }
+    }
+    &:nth-child(2) {
+        &:after {
+            @include icontop();
+        }
+    }
+    &:nth-child(3) {
+        &:after {
+            @include icontop();
+        }
+    }
+}
+
+
+@media screen and (max-width:319px) {
+    html {
+        font-size: 85.33px
+    }
+}
+@media screen and (min-width:320px) and (max-width:359px) {
+    html {
+        font-size: 85.33px
+    }
+}
+@media screen and (min-width:360px) and (max-width:374px) {
+    html {
+        font-size: 96px
+    }
+}
+@media screen and (min-width:375px) and (max-width:383px) {
+    html {
+        font-size: 100px
+    }
+}
+@media screen and (min-width:384px) and (max-width:399px) {
+    html {
+        font-size: 102.4px
+    }
+}
+@media screen and (min-width:400px) and (max-width:411px) {
+    html {
+        font-size: 106.67px
+    }
+}
+@media screen and (min-width:412px) and (max-width:413px) {
+    html {
+        font-size: 109.87px
+    }
+}
+@media screen and (min-width:414px) {
+    html {
+        font-size: 110.4px
+    }
+}

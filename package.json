@@ -1,0 +1,74 @@
+{
+  "name": "builder-webpack3",
+  "version": "0.4.5",
+  "description": "webpack项目构建器.",
+  "main": "lib/index.js",
+  "scripts": {
+    "commitmsg": "validate-commit-msg",
+    "commit": "git-cz ",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "test": "node ./test/template-project/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iv-web/builder-webpack"
+  },
+  "license": "MIT",
+  "configs": {
+    "compatibleVersion": ">=0.4.3"
+  },
+  "keywords": [
+    "webpack",
+    "builder",
+    "feflow"
+  ],
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-import": "^1.6.6",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "builder-webpack-core": "^0.1.9",
+    "caniuse-db": "^1.0.30000764",
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.7",
+    "express": "^4.16.2",
+    "file-loader": "^1.1.5",
+    "glob": "^7.1.3",
+    "happypack": "^4.0.0",
+    "html-loader": "^0.5.1",
+    "html-webpack-inline-source-plugin": "0.0.9",
+    "less": "^3.8.0",
+    "less-loader": "^4.1.0",
+    "node-sass": "^4.9.0",
+    "osenv": "^0.1.5",
+    "px2rem-loader": "^0.1.7",
+    "raw-loader": "^0.5.1",
+    "replace-text-loader": "^0.2.1",
+    "sass-loader": "^6.0.6",
+    "string-replace-webpack-plugin": "^0.1.3",
+    "style-loader": "^0.19.0",
+    "ts-loader": "^4.3.0",
+    "uglify-js": "^2.8.29",
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.2",
+    "webpack-hot-middleware": "^2.22.3",
+    "webview-preload-webpack-plugin": "^1.0.0"
+  },
+  "devDependencies": {
+    "commitizen": "^2.3.0",
+    "conventional-changelog-cli": "^1.2.0",
+    "glob-all": "^3.1.0",
+    "husky": "^0.13.1",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
+    "validate-commit-msg": "^2.11.1"
+  }
+}

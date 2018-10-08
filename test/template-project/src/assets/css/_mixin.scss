@@ -1,0 +1,71 @@
+
+@mixin backgroundImage {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+@mixin inlineBlock {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+@mixin verticalCenter {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    &:after,
+    &:before {
+        content: " ";
+        display: block;
+        -webkit-box-flex: 1;
+        visibility: hidden;
+    }
+}
+
+@mixin nowrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin lineClamp($line: 2) {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@mixin clear {
+    &:before,
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+        height: 0;
+        overflow: hidden;
+    }
+}
+
+$_fadeInId: 1;
+@mixin fadeIn($duration: .3s, $delay: 0s) {
+    $_fadeInId: $_fadeInId + 1 !global;
+    $name: 'fade-in-' + $_fadeInId;
+    animation: $name ($duration + $delay);
+    @keyframes $name {
+        0% {
+            opacity: 0;
+        }
+        @if $delay > 0s {
+            #{$delay / ($duration + $delay) * 100}% {
+                opacity: 0;
+            }
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+}
+

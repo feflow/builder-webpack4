@@ -1,0 +1,18 @@
+language: node_js
+
+sudo: false
+
+cache:
+  apt: true
+  directories:
+    - node_modules
+
+node_js: stable  #设置相应的版本
+
+install:
+  - npm install -D  #安装builder依赖
+  - cd ./test/template-project
+  - npm install -D #安装模板项目依赖
+
+script:
+  - npm test
