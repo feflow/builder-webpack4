@@ -1,12 +1,12 @@
-[![](https://img.shields.io/travis/feflow/builder-webpack3.svg)](https://travis-ci.org/feflow/builder-webpack3)
+[![](https://img.shields.io/travis/feflow/builder-webpack4.svg)](https://travis-ci.org/feflow/builder-webpack4)
 
 # builder-webpack
 
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/iv-web/feflow/blob/master/LICENSE)
-[![npm package](https://img.shields.io/npm/v/builder-webpack3.svg?style=flat-square)](https://www.npmjs.org/package/builder-webpack3)
-[![NPM downloads](http://img.shields.io/npm/dt/builder-webpack3.svg?style=flat-square)](https://npmjs.org/package/builder-webpack3)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/cpselvis/builder-webpack3/pulls)
+[![npm package](https://img.shields.io/npm/v/builder-webpack4.svg?style=flat-square)](https://www.npmjs.org/package/builder-webpack4)
+[![NPM downloads](http://img.shields.io/npm/dt/builder-webpack4.svg?style=flat-square)](https://npmjs.org/package/builder-webpack4)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/cpselvis/builder-webpack4/pulls)
 
 Webpack 构建器, 适用于NOW直播业务和活动类型的项目构建
 
