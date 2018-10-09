@@ -19,6 +19,6 @@ script:
 
 
 after_failed:
-  - ./weixin-robot.sh 0
+  - sh ./weixin-robot.sh 0
 after_success:
-  - ./weixin-robot.sh 1
+  - sh ./weixin-robot.sh 1
