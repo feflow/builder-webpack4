@@ -30,6 +30,6 @@
     "conventional-changelog-cli": "^1.2.0",
     "husky": "^0.13.1",
     "validate-commit-msg": "^2.11.1",
-    "webpack": "^3.8.1"
+    "webpack": "^4.20.2"
   }
 }
