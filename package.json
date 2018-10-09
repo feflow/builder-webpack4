@@ -1,6 +1,6 @@
 {
-  "name": "builder-webpack3",
-  "version": "0.4.5",
+  "name": "builder-webpack4",
+  "version": "0.0.1",
   "description": "webpack项目构建器.",
   "main": "lib/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "configs": {
-    "compatibleVersion": ">=0.4.3"
+    "compatibleVersion": ">=0.0.1"
   },
   "keywords": [
     "webpack",
@@ -55,7 +55,8 @@
     "style-loader": "^0.19.0",
     "ts-loader": "^4.3.0",
     "uglify-js": "^2.8.29",
-    "webpack": "^3.8.1",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.20.2",
     "webpack-dev-middleware": "^1.12.2",
     "webpack-hot-middleware": "^2.22.3",
     "webview-preload-webpack-plugin": "^1.0.0"
