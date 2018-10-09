@@ -1,4 +1,4 @@
-[![](https://img.shields.io/travis/feflow/builder-webpack4.svg)](https://travis-ci.org/feflow/builder-webpack4)
+[![](https://img.shields.io/travis/feflow/builder-webpack4.svg)](https://travis-ci.com/feflow/builder-webpack4)
 
 # builder-webpack
 

@@ -19,7 +19,6 @@ script:
 
 
 after_failed:
-  - curl -X POST -H 'Content-type: application/json' --data '{"msgtype":"markdown","markdown":{"content":"builder-webpack4测试失败，[查看状态](https://travis-ci.org/feflow/builder-webpack4)"}}' https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=161b28c8-c676-42ff-b8a5-f57d4fca551b
-
+  - ./weixin-robot.sh 0
 after_success:
-  - curl -X POST -H 'Content-type: application/json' --data '{"msgtype":"markdown","markdown":{"content":"builder-webpack4测试成功，[查看状态](https://travis-ci.org/feflow/builder-webpack4)"}}' https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=161b28c8-c676-42ff-b8a5-f57d4fca551b
+  - ./weixin-robot.sh 1
