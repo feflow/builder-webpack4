@@ -16,9 +16,8 @@ install:
 
 script:
   - npm test
-  - cd ../../
 
 after_failed:
-  - sh ./weixin-robot.sh 0
+  - sh ../../weixin-robot.sh 0
 after_success:
-  - sh ./weixin-robot.sh 1
+  - sh ../../weixin-robot.sh 1
