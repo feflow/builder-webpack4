@@ -48,7 +48,7 @@
     "less": "^3.8.0",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.3",
-    "offline-webpack-plugin": "0.0.4",
+    "offline-webpack-plugin": "0.1.0",
     "osenv": "^0.1.5",
     "px2rem-loader": "^0.1.7",
     "raw-loader": "^0.5.1",
