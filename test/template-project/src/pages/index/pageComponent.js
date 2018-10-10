@@ -1,5 +1,4 @@
 'use strict'
-import './index.scss'
 import './index.less'
 import React, {
     Component
