@@ -30,8 +30,15 @@ const startTest = function() {
                 }
                 return;
             }
-            console.log(stats.toString('errors-only'));
-            console.log('webpack compilation completed')
+            // 输出一些时间和体积大小信息用于比较性能
+            console.log(stats.toString({
+                colors: true,
+                modules: false,
+                children: false, // if you are using ts-loader, setting this to true will make typescript errors show up during build
+                chunks: false,
+                chunkModules: false
+            }));
+            console.log('\n' + 'webpack compilation completed. Now start mocha test')
             glob('./test.js', (err, matches) => {
                 testFile = matches[0];
                 mocha.addFile(testFile);
