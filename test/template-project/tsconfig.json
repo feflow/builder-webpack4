@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "moduleResolution": "node",
+        "baseUrl": "./",
+        "sourceMap": true,
+        "module": "es6",
+        "experimentalDecorators": true,
+        "target": "es5",
+        "lib": ["es2015", "es2017", "dom"],
+        "jsx": "react",
+        "allowJs": true,
+        "noImplicitAny": false,
+        "removeComments": false,
+        "pretty": true,
+        "paths": {
+            "common/*": ["src/common/*"],
+            "js/*": ["src/js/*"]
+        }
+    },
+    "include": ["src/**/*"]
+}
