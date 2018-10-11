@@ -40,7 +40,7 @@ const startTest = function() {
             }));
             console.log('\n' + 'webpack compilation completed. Now start mocha test')
             glob('./test.js', (err, matches) => {
-                testFile = matches[0];
+                const testFile = matches[0];
                 mocha.addFile(testFile);
                 mocha.run();
             });
