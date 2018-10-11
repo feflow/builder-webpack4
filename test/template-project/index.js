@@ -33,7 +33,7 @@ const startTest = function() {
             console.log(stats.toString('errors-only'));
             console.log('webpack compilation completed')
             glob('./test.js', (err, matches) => {
-                testFile = matches[0];
+                const testFile = matches[0];
                 mocha.addFile(testFile);
                 mocha.run();
             });
