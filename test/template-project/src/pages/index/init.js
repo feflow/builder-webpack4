@@ -5,6 +5,7 @@ import indexPage from "./index";
  * @noWrap
  */
 (function() {
+    window._T = {}
     window._T.page_js_ready = new Date();
 
     var isRetry = +(window.location.href.includes('_retry') || 0);

@@ -4,6 +4,25 @@ const path = require('path');
 const webpack = require('webpack');
 const glob = require('glob-all');
 const rimraf = require('rimraf');
+const builder = require('../../lib/index');
+
+const testPrerender = function() {
+    const prerenderConfig = builder.prerenderConfig;
+    // 修改loader的解析路径，因为没有在travis-ci全局安装feflow，所以需要加入本地路径
+    prerenderConfig.resolveLoader.modules = [
+        'node_modules',
+        path.resolve(__dirname, '../../node_modules'),
+    ];
+    webpack(prerenderConfig, (err, stats) => {
+        console.log(stats.toString({
+            colors: true,
+            modules: false,
+            children: false, // if you are using ts-loader, setting this to true will make typescript errors show up during build
+            chunks: false,
+            chunkModules: false
+        }));
+    })
+}
 
 const startTest = function() {
     const mocha = new Mocha({
@@ -11,7 +30,6 @@ const startTest = function() {
     });
 
     process.chdir(__dirname); // 切换到当前template-project，否则找不到feflow.json
-    const builder = require('../../lib/index');
     let prodConfig = builder.prodConfig;
     // 修改loader的解析路径，因为没有在travis-ci全局安装feflow，所以需要加入本地路径
     prodConfig.resolveLoader.modules = [
@@ -48,7 +66,9 @@ const startTest = function() {
     });
 };
 
-startTest();
+// startTest();
+
+testPrerender();
 
 // exec("npm install -D", (error, stdout, stderr) => {
 //   if (error) {

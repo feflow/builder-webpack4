@@ -1,6 +1,7 @@
 {
     "builderType": "builder-webpack3",
     "builderOptions": {
+        "isPrerender": true,
         "moduleName": "mobile",
         "bizName": "category",
         "minifyHTML": true,

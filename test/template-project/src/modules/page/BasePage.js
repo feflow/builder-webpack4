@@ -2,11 +2,13 @@ import React, {
     Component
 } from "react";
 import ReactDOM from 'react-dom';
+import ReactDOMServer from 'react-dom/server';
 import {
     Provider,
     connect
 } from "react-redux";
 import pageStore from "../globalStore/Store";
+
 
 export default class BasePage {
 
@@ -36,13 +38,24 @@ export default class BasePage {
             console.log(message);
         };
     }
-    static renderPage() {
+    static renderPage(isPrerender) {
         let reactRedux = this.providerConnect();
         let container = document.getElementById(this.conainerId);
         window._T.page_main_end = new Date();
         ReactDOM.render(reactRedux, container, (component) => {
             console.log('首屏渲染成功');
         });
+        if (isPrerender) {
+            ReactDOM.hydrate(reactRedux, container, (component) => {
+                console.log('已检测到预渲染页面，hydrate 成功');
+            })
+        }
+    }
+
+    static renderStaticHtml() {
+        const reactRedux = this.providerConnect();
+        const html =  ReactDOMServer.renderToString(reactRedux)
+        return html
     }
 
     static providerConnect() {
