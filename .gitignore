@@ -4,4 +4,4 @@ node_modules
 *.log
 *-lock.json
 coverage/
-test/**/public/
+test/**/dist/
