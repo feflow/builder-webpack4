@@ -1,3 +1,13 @@
+<a name="0.0.6"></a>
+## [0.0.6](https://github.com/iv-web/builder-webpack/compare/v0.0.4...v0.0.6) (2019-01-04)
+
+
+### Bug Fixes
+
+* set offline dir configurable ([233db53](https://github.com/iv-web/builder-webpack/commit/233db53))
+
+
+
 <a name="0.0.4"></a>
 ## 0.0.4 (2019-01-04)
 
