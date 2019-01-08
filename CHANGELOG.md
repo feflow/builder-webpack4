@@ -1,3 +1,13 @@
+<a name="0.0.8"></a>
+## [0.0.8](https://github.com/iv-web/builder-webpack/compare/v0.0.6...v0.0.8) (2019-01-08)
+
+
+### Bug Fixes
+
+* 添加autoprefix-loader ([5843fb5](https://github.com/iv-web/builder-webpack/commit/5843fb5))
+
+
+
 <a name="0.0.6"></a>
 ## [0.0.6](https://github.com/iv-web/builder-webpack/compare/v0.0.4...v0.0.6) (2019-01-04)
 
