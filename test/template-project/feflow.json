@@ -1,6 +1,7 @@
 {
-    "builderType": "builder-webpack3",
+    "builderType": "builder-webpack4",
     "builderOptions": {
+        "outDir": "dist",
         "moduleName": "mobile",
         "bizName": "category",
         "minifyHTML": true,
