@@ -1,3 +1,13 @@
+<a name="0.0.11"></a>
+## [0.0.11](https://github.com/iv-web/builder-webpack/compare/v0.0.10...v0.0.11) (2019-01-25)
+
+
+### Bug Fixes
+
+* fix webpack subresource integrity version ([e2b795f](https://github.com/iv-web/builder-webpack/commit/e2b795f))
+
+
+
 <a name="0.0.9"></a>
 ## [0.0.9](https://github.com/iv-web/builder-webpack/compare/v0.0.8...v0.0.9) (2019-01-08)
 
