@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "strictFunctionTypes": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "moduleResolution": "Node",
+    "stripInternal": false,
+    "module": "commonjs",
+    "strictNullChecks": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports":true,
+    "target": "es6",
+    "noImplicitAny": false,
+    "outDir": "dist"
+  },
+  "exclude": [
+    "node_modules",
+    "lib",
+    ".idea"
+  ],
+  "compileOnSave": false
+}
