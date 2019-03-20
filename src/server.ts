@@ -9,29 +9,30 @@ const builderOptions = Config.getBuildConfig();
 
 const app = express();
 export interface BuilderOptions {
-    outDir: string,
-    entry: any,
-    moduleName?: string,
-    bizName?: string,
-    minifyHTML?: boolean,
-    minifyCSS?: boolean,
-    minifyJS?: boolean,
-    "inlineCSS"?: boolean,
-    usePx2rem: boolean,
-    "remUnit": number,
-    remPrecision: number,
-    inject?: boolean,
-    useTreeShaking?: boolean,
-    port?: number,
-    hot?: boolean,
-    product?: string,
-    domain?: string,
-    cdn?: string,
-    useReact?: boolean,
-    externals?: Array<any>,
-    runtime?: string,
-    alias?: any,
-    devServer?: any
+    // outDir: string,
+    // entry: any,
+    // moduleName?: string,
+    // bizName?: string,
+    // minifyHTML?: boolean,
+    // minifyCSS?: boolean,
+    // minifyJS?: boolean,
+    // "inlineCSS"?: boolean,
+    // usePx2rem: boolean,
+    // "remUnit": number,
+    // remPrecision: number,
+    // inject?: boolean,
+    // useTreeShaking?: boolean,
+    // port?: number,
+    // hot?: boolean,
+    // product?: string,
+    // domain?: string,
+    // cdn?: string,
+    // useReact?: boolean,
+    // externals?: Array<any>,
+    // runtime?: string,
+    // alias?: any,
+    // devServer?: any
+    [propName: string]: any;
 }
 
 export default (devConfig: BuilderOptions) => {

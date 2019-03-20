@@ -1,28 +1,25 @@
 {
   "compilerOptions": {
-    "declaration": false,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "strictFunctionTypes": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "moduleResolution": "Node",
-    "stripInternal": false,
     "module": "commonjs",
-    "strictNullChecks": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "allowSyntheticDefaultImports":true,
-    "target": "es6",
+    "esModuleInterop": true,
+    "target": "es5",
     "noImplicitAny": false,
-    "outDir": "dist"
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "src/types/*"
+      ]
+    },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true
   },
-  "exclude": [
-    "node_modules",
-    "lib",
-    ".idea"
+  "include": [
+    "src/**/*"
   ],
-  "compileOnSave": false
+  "experimentalDecorators": true
 }

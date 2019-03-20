@@ -69,13 +69,13 @@
     "@types/glob": "^7.1.1",
     "@types/node": "^11.9.5",
     "@types/webpack": "^4.4.25",
+    "babel-preset-es2015": "^6.24.1",
     "commitizen": "^2.3.0",
     "conventional-changelog-cli": "^1.2.0",
     "glob-all": "^3.1.0",
     "husky": "^0.13.1",
     "mocha": "^5.2.0",
     "rimraf": "^2.6.2",
-    "ts-loader": "^5.3.3",
     "validate-commit-msg": "^2.11.1",
     "webpack-cli": "^3.2.3"
   }
