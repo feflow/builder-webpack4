@@ -89,6 +89,10 @@ export interface LoaderObjOptions{
     [propName: string]: any
 }
 
+interface String {
+    endsWith(searchString: string, endPosition?: number): boolean;
+};
+
 // 最基础的配置
 const baseConfig = {
     target: 'web',
@@ -108,7 +112,7 @@ const baseConfig = {
         hints: 'warning', // enum
         maxAssetSize: 200000, // int (in bytes),
         maxEntrypointSize: 400000, // int (in bytes)
-        assetFilter: function (assetFilename: string): boolean {
+        assetFilter: function (assetFilename: String): boolean {
             // Function predicate that provides asset filenames
             return assetFilename.endsWith('.css') || assetFilename.endsWith('.js')
         }
