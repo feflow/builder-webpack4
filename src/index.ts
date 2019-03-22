@@ -7,8 +7,8 @@ export interface BaseConfig {
 }
 
 const builderOptions = Config.getBuildConfig();
-export const devConfig: BaseConfig = Builder.createDevConfig(builderOptions);
-export const prodConfig: BaseConfig = Builder.createProdConfig(builderOptions);
+const devConfig: BaseConfig = Builder.createDevConfig(builderOptions);
+const prodConfig: BaseConfig = Builder.createProdConfig(builderOptions);
 
 function builderWebpack4 (cmd: string) {
   if (cmd === 'dev') {
@@ -25,6 +25,8 @@ function builderWebpack4 (cmd: string) {
   }
 }
 export default builderWebpack4;
+exports.default.devConfig = devConfig;
+exports.default.prodConfig = prodConfig;
 module.exports = exports.default;
 
 
