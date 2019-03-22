@@ -30,21 +30,6 @@ if (!projectRoot) {
     projectRoot = Config.getPath('feflow.js');
 }
 
-// export interface BaseConfig {
-//     target?: string,
-//     cache?: boolean,
-//     entry: string | object,
-//     output: string | object,
-//     module: BaseConfigModule,
-//     plugins?: Array<any>,
-//     resolve: BaseConfigResolve,
-//     resolveLoader?: object,
-//     performance?: BaseConfigPerformance,
-//     mode?: string,
-//     devtool?: string,
-//     alias?: object,
-//     devServer?: object
-// }
 export interface BaseConfig {
     [propName: string]: any;
 }
