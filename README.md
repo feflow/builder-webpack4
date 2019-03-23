@@ -48,6 +48,7 @@ $ npm install feflow-cli -g
         "remPrecision": 8,                                   // Rem 的精度，即 px 转换成了 rem 后的小数点后位数
         "inject": true,                                      // 打包生成的 js 文件是否自动注入到 html 文件 body 之后
         "port": 8001,                                        // 本地开发的 webpack 构建服务进程端口号
+        "babelrcPath": ""                                    // 指定.babelrc文件相对根目录的路径，默认为./.babelrc
         "externals": [                                       // 基础框架不打入到 bundle 里面
             {
                 "module": "react",
