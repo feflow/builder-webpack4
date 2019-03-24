@@ -56,7 +56,8 @@ export interface BuilderOptions {
     useReact?: boolean,
     externals?: Array<any>,
     runtime?: string,
-    alias?: any
+    alias?: any,
+    babelrcPath?: string
 }
 
 
