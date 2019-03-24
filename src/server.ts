@@ -1,15 +1,18 @@
 "use strict";
 
-const express = require("express");
-const webpack = require("webpack");
-const webpackDevMiddleware = require("webpack-dev-middleware");
-const webpackHotMiddleware = require("webpack-hot-middleware");
-const Config = require("./config");
+import express from "express";
+import webpack from "webpack";
+import webpackDevMiddleware from "webpack-dev-middleware";
+import webpackHotMiddleware from "webpack-hot-middleware";
+import Config from "./config";
 const builderOptions = Config.getBuildConfig();
 
 const app = express();
+export interface BuilderOptions {
+    [propName: string]: any;
+}
 
-module.exports = devConfig => {
+export default (devConfig: BuilderOptions) => {
   // 添加webpack hmr入口，这要求项目中也要安装webpack-hot-middleware，否则webpack找不到该模块
   // TODO: 这里其实可以添加resolve解决
   for (var key in devConfig.entry) {
@@ -44,7 +47,7 @@ module.exports = devConfig => {
 
 
   // Serve the files on port.
-  app.listen(devConfig.devServer.port, function(res, err) {
+  app.listen(devConfig.devServer.port, function(_, err) {
     if (err) {
       console.error(err);
     } else {

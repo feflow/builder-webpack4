@@ -1,14 +1,17 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 /**
  * 深拷贝, Object.assign()只有第一层是深拷贝, 第二层之后仍然是 浅拷贝
  * @param source
  * @returns {{}}
  */
-const deepCopy = (source) => {
+export interface DeepCopyData {
+    [propName: string]: any;
+}
+export const deepCopy = (source: DeepCopyData): DeepCopyData => {
     const ret = {};
 
     for (let k in source) {
@@ -24,7 +27,7 @@ const deepCopy = (source) => {
  * @param directories  默认为[]
  * @returns {*|Array}
  */
-const listDir = (root, level, directories) => {
+export const listDir = (root: string, level: number, directories: Array<any>): Array<any> => {
     directories = directories || [];
 
     if (!fs.existsSync(root)) {
@@ -53,13 +56,13 @@ const listDir = (root, level, directories) => {
  * @param obj1   Object
  * @param obj2   Object
  */
-const merge = (obj1, obj2) => {
+export const merge = (obj1: object, obj2: object) => {
     return Object.assign({}, obj1, obj2);
 };
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-const isEmpty = (obj) => {
+export const isEmpty = (obj: any): boolean => {
     if (obj == null) return true;
     if (obj.length > 0) return false;
     if (obj.length === 0) return true;
@@ -72,8 +75,3 @@ const isEmpty = (obj) => {
 
     return true;
 };
-
-exports.deepCopy = deepCopy;
-exports.listDir = listDir;
-exports.merge = merge;
-exports.isEmpty = isEmpty;
