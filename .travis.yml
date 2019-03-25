@@ -11,6 +11,7 @@ node_js: stable  #设置相应的版本
 
 install:
   - npm install -D  #安装builder依赖
+  - npm install typescript -g #安装tsc
   - cd ./test/template-project
   - npm install -D #安装模板项目依赖
 
