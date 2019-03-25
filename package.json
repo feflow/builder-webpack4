@@ -1,6 +1,6 @@
 {
   "name": "builder-webpack4",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "webpack项目构建器.",
   "main": "lib/index.js",
   "scripts": {
@@ -35,6 +35,7 @@
     "autoprefixer": "^9.4.4",
     "babel-loader": "^8.0.0",
     "clean-webpack-plugin": "^0.1.19",
+    "css-hot-loader": "^1.4.2",
     "css-loader": "^1.0.0",
     "express": "^4.16.2",
     "file-loader": "^2.0.0",
