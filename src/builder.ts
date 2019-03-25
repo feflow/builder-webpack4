@@ -448,6 +448,11 @@ class Builder {
             options: {}
         });
 
+        cssRuleArray.push({
+            loader: 'css-hot-loader',
+            options: {}
+        });
+
         // 加载Css loader, 判断是否开启压缩
         const cssLoaderRule = {
             loader: "css-loader",
