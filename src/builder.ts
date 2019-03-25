@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Copyright (c) 2018 Tencent Inc.
  *
@@ -7,30 +5,79 @@
  *
  * cpselvis <cpselvis@gmal.com>
  */
-const path = require('path');
-const glob = require("glob");
-const webpack = require('webpack');
-const fs = require('fs');
-const osenv = require('osenv');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
-const SriPlugin = require('webpack-subresource-integrity');
-const OfflineWebpackPlugin = require('offline-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const StringReplaceWebpackPlugin = require('string-replace-webpack-plugin');
-const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
+import path from 'path';
+import glob from 'glob';
+import webpack from 'webpack';
+import fs from 'fs';
+import osenv from 'osenv';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import HtmlWebpackExternalsPlugin from 'html-webpack-externals-plugin';
+import SriPlugin from 'webpack-subresource-integrity';
+import OfflineWebpackPlugin from 'offline-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import StringReplaceWebpackPlugin from 'string-replace-webpack-plugin';
+import HTMLInlineCSSWebpackPlugin from 'html-inline-css-webpack-plugin';
 
-const {deepCopy, listDir, merge, isEmpty} = require('./util');
-const Config = require('./config');
+import {deepCopy, listDir, merge, isEmpty} from './util';
+import Config from './config';
 
 // 当前运行的时候的根目录
-let projectRoot = Config.getPath('feflow.json');
+let projectRoot: string = Config.getPath('feflow.json');
 
 if (!projectRoot) {
     projectRoot = Config.getPath('feflow.js');
 }
+
+export interface BaseConfig {
+    [propName: string]: any;
+}
+
+export interface BuilderOptions {
+    outDir: string | object,
+    entry: string | object,
+    moduleName?: string,
+    bizName?: string,
+    minifyHTML: boolean,
+    minifyCSS?: boolean,
+    minifyJS?: boolean,
+    inlineCSS: boolean,
+    usePx2rem: boolean,
+    "remUnit": number,
+    remPrecision: number,
+    inject: boolean,
+    useTreeShaking?: boolean,
+    port?: number,
+    hot?: boolean,
+    product?: string,
+    domain?: string,
+    cdn?: string,
+    useReact?: boolean,
+    externals?: Array<any>,
+    runtime?: string,
+    alias?: any,
+    babelrcPath?: string
+}
+
+
+
+export interface LoaderObj {
+    test?: object,
+    use?: object | Array<any>,
+    loader?: any,
+    options: LoaderObjOptions,
+    include?: string,
+    exclude?: string
+}
+
+export interface LoaderObjOptions{
+    [propName: string]: any
+}
+
+interface String {
+    endsWith(searchString: string, endPosition?: number): boolean;
+};
 
 // 最基础的配置
 const baseConfig = {
@@ -40,6 +87,7 @@ const baseConfig = {
     module: {
         rules: []
     },
+    output: '',
     plugins: [],
     resolve: {
         alias: glob.sync(path.join(projectRoot, './src/*/')) // 支持Webpack import绝对路径的写法
@@ -50,7 +98,7 @@ const baseConfig = {
         hints: 'warning', // enum
         maxAssetSize: 200000, // int (in bytes),
         maxEntrypointSize: 400000, // int (in bytes)
-        assetFilter: function (assetFilename) {
+        assetFilter: function (assetFilename: String): boolean {
             // Function predicate that provides asset filenames
             return assetFilename.endsWith('.css') || assetFilename.endsWith('.js')
         }
@@ -74,11 +122,11 @@ class Builder {
      *
      * @example
      */
-    static createDevConfig(options) {
-        const devConfig = deepCopy(baseConfig);
+    static createDevConfig(options: BuilderOptions): BaseConfig {
+        const devConfig: BaseConfig = deepCopy(baseConfig);
         devConfig.mode = 'development';
         // 设置打包规则
-        const devRules = [];
+        const devRules: Array<any> = [];
         // 设置HTML解析规则
         devRules.push(this.setHtmlRule());
         // 设置图片解析规则
@@ -95,7 +143,7 @@ class Builder {
         devRules.push(this.setFontRule());
 
         // 设置打包插件
-        let devPlugins = [];
+        let devPlugins: Array<any> = [];
         devPlugins.push(new StringReplaceWebpackPlugin());
         // 设置提取CSS为一个单独的文件的插件
         devPlugins.push(this.setMiniCssExtractPlugin(false, ''));
@@ -151,26 +199,26 @@ class Builder {
      * @param {String}  options.babelrcPath             指定babelrc配置路径
      * @example
      */
-    static createProdConfig(options) {
-        const prodConfig = deepCopy(baseConfig);
+    static createProdConfig(options: BuilderOptions): BaseConfig {
+        const prodConfig: BaseConfig = deepCopy(baseConfig);
         prodConfig.mode = 'production';
-        const bizName = options.bizName;
-        const moduleName = options.moduleName;
+        const bizName: string | undefined = options.bizName;
+        const moduleName: string | undefined = options.moduleName;
         // 业务域名
-        const domain = options.domain || 'now.qq.com';
-        const cdn = options.cdn || '11.url.cn';
-        const product = options.product || 'now';
+        const domain: string = options.domain || 'now.qq.com';
+        const cdn: string = options.cdn || '11.url.cn';
+        const product: string = options.product || 'now';
         // Html 路径前缀, 打包时的目录
-        const htmlPrefix = moduleName ? `../../webserver/${bizName}` : '../webserver';
+        const htmlPrefix: string = moduleName ? `../../webserver/${bizName}` : '../webserver';
         // Css, Js, Img等静态资源路径前缀, 打包时的目录
-        const assetsPrefix = moduleName ? `cdn/${bizName}` : 'cdn';
-        const cdnUrl = moduleName ? `//${cdn}/${product}/${moduleName}/${bizName}` : `//${cdn}/${product}/${bizName}`;
-        const serverUrl = moduleName ? `//${domain}/${moduleName}/${bizName}` : `//${domain}/${bizName}`;
+        const assetsPrefix: string = moduleName ? `cdn/${bizName}` : 'cdn';
+        const cdnUrl: string = moduleName ? `//${cdn}/${product}/${moduleName}/${bizName}` : `//${cdn}/${product}/${bizName}`;
+        const serverUrl: string = moduleName ? `//${domain}/${moduleName}/${bizName}` : `//${domain}/${bizName}`;
 
-        const regex = new RegExp(assetsPrefix + '/', 'g');
+        // const regex = new RegExp(assetsPrefix + '/', 'g');
 
         // 设置打包规则
-        const prodRules = [];
+        const prodRules: Array<any> = [];
         // 设置HTML解析规则
         prodRules.push(this.setHtmlRule());
         // 设置图片解析规则, 图片需要hash
@@ -187,7 +235,7 @@ class Builder {
         prodRules.push(this.setFontRule());
 
         // 设置打包插件
-        let prodPlugins = [];
+        let prodPlugins: Array<any> = [];
         // 清空Public目录插件, https://github.com/johnagan/clean-webpack-plugin/issues/17
         prodPlugins.push(new CleanWebpackPlugin([options.outDir], {
             root: projectRoot,
@@ -258,7 +306,7 @@ class Builder {
      * @returns {{filename: string, path: string, publicPath: *}}
      * @private
      */
-    static setOutput(useHash, pathPrefix, publicPath, outDir) {
+    static setOutput(useHash: boolean, pathPrefix: string, publicPath: string, outDir: string | object) {
         let hash = '';
         outDir = outDir || 'public';
         if (useHash) {
@@ -280,7 +328,7 @@ class Builder {
      * @returns {{test: RegExp, use: {loader: string, options: {name: string}}}}
      * @private
      */
-    static setImgRule(useHash, pathPrefix) {
+    static setImgRule(useHash: boolean, pathPrefix?: string) {
         let filename = '';
         let hash = '';
 
@@ -323,7 +371,7 @@ class Builder {
      * @private
      */
     static setHtmlRule() {
-        const htmlRuleArray = [];
+        const htmlRuleArray: Array<any> = [];
 
         htmlRuleArray.push({
             loader: 'html-loader',
@@ -345,7 +393,7 @@ class Builder {
                         // <script>${require('raw-loader!babel-loader!../../node_modules/@tencent/report
                         // - whitelist')}</script> 语法
                         pattern: /<script.*?src="(.*?)\?__inline".*?>.*?<\/script>/gmi,
-                        replacement: (source) => {
+                        replacement: (source: string): string => {
                             // 找到需要 inline 的包
                             const result = /<script.*?src="(.*?)\?__inline"/gmi.exec(source);
                             const pkg = result && result[1];
@@ -354,7 +402,7 @@ class Builder {
                     }, {
                         // inline html, 匹配<!--inline[/assets/inline/meta.html]-->语法
                         pattern: /<!--inline\[.*?\]-->/gmi,
-                        replacement: (source) => {
+                        replacement: (source: string): string => {
                             // 找到需要 inline 的包
                             const result = /<!--inline\[(.*?)\]-->/gmi.exec(source);
                             let path = result && result[1];
@@ -392,29 +440,33 @@ class Builder {
      * @returns {{test: RegExp, use: *}}
      * @private
      */
-    static setLessRule(minimize, usePx2rem, remUnit, remPrecision) {
-        const cssRuleArray = [];
+    static setLessRule(minimize: boolean, usePx2rem: boolean, remUnit: number, remPrecision: number) {
+        const cssRuleArray: Array<LoaderObj>= [];
 
         cssRuleArray.push({
-            loader: 'css-hot-loader'
+            loader: MiniCssExtractPlugin.loader,
+            options: {}
         });
 
         cssRuleArray.push({
-            loader: MiniCssExtractPlugin.loader
+            loader: 'css-hot-loader',
+            options: {}
         });
 
         // 加载Css loader, 判断是否开启压缩
         const cssLoaderRule = {
             loader: "css-loader",
-            options: {
-                alias: this.setAlias()
-            }
+            options: {}
         };
 
         if (minimize) {
             cssLoaderRule.options = {
                 minimize: true
             };
+        } else {
+            cssLoaderRule.options = {
+                alias: this.setAlias()
+            }
         }
 
         cssRuleArray.push(cssLoaderRule);
@@ -443,7 +495,10 @@ class Builder {
         });
 
         // 雪碧图loader
-        cssRuleArray.push({ loader: "sprites-loader" });
+        cssRuleArray.push({
+            loader: "sprites-loader",
+            options: {}
+        });
 
         // 加载解析less的less-loader
         cssRuleArray.push({
@@ -504,7 +559,7 @@ class Builder {
      * @param pathPrefix            CSS的前缀，不传入则为空
      * @private
      */
-    static setMiniCssExtractPlugin(useHash, pathPrefix) {
+    static setMiniCssExtractPlugin(useHash: boolean, pathPrefix: string) {
         let filename = '';
         let hash = '';
 
@@ -552,9 +607,9 @@ class Builder {
      * @returns {{newEntry: {}, htmlWebpackPlugins: Array}}
      * @private
      */
-    static setMultiplePage(entries, minifyHtml, inject, inlineCSS, assetsPrefix, htmlPrefix) {
+    static setMultiplePage(entries: string | object, minifyHtml: boolean, inject: boolean, _inlineCSS: boolean, _assetsPrefix: string, htmlPrefix?: string) {
         const newEntry = {};
-        const htmlWebpackPlugins = [];
+        const htmlWebpackPlugins: Array<any> = [];
 
         Object
             .keys(entries)
@@ -622,13 +677,13 @@ class Builder {
      * @param product                 cdn对应的产品
      * @private
      */
-    static setOffline(assetsPrefix, htmlPrefix, cdnUrl, serverUrl, domain, cdn, product, outDir) {
+    static setOffline(assetsPrefix: string, htmlPrefix: string, _cdnUrl: string, serverUrl: string, domain: string, cdn: string, product: string, outDir: string | object) {
         outDir = outDir || 'public';
 
         return new OfflineWebpackPlugin({
             path: path.join(projectRoot, `./${outDir}/offline`),
             filename: 'offline.zip',
-            pathMapper: (assetPath) => {
+            pathMapper: (assetPath: string) => {
                 if (assetPath.indexOf(htmlPrefix) !== -1) {
                     // 所有资源都改成 now.qq.com 的域名， 防止跨域问题
                     assetPath = assetPath.replace(htmlPrefix, '');
@@ -637,7 +692,7 @@ class Builder {
                 }
                 return path.join(serverUrl.replace('//', ''), assetPath);
             },
-            beforeAddBuffer(source, assetPath) {
+            beforeAddBuffer(source: string, assetPath: string) {
                 if (assetPath.indexOf(htmlPrefix) !== -1) {
                     // 基础包域名修改， 防止跨域问题
                     source = source.replace(/\/\/11\.url\.cn\/now\/([^"'\)\`]+)(["'\`\)])/g, `//${domain}/$1$2`);
@@ -665,11 +720,11 @@ class Builder {
     /**
      * Code split, 提取出公共js文件，避免每个页面重复打包
      */
-    static setCommonsChunkPlugin() {
-        return new webpack.optimize.CommonsChunkPlugin({
-            name: 'common'
-        });
-    }
+    // static setCommonsChunkPlugin() {
+    //     return new webpack.optimize.CommonsChunkPlugin({
+    //         name: 'common'
+    //     });
+    // }
 
     /**
      * 设置dev server，WDS配置
@@ -677,7 +732,7 @@ class Builder {
      * @returns {{contentBase: string, inline: boolean, historyApiFallback: boolean, disableHostCheck: boolean, port: *}}
      * @private
      */
-    static setDevServer(port) {
+    static setDevServer(port: number) {
         return {
             contentBase: path.join(projectRoot, './src'),
             inline: true,
@@ -695,10 +750,10 @@ class Builder {
      *
      * @private
      */
-    static setAlias(alias) {
+    static setAlias(alias?: any) {
         const aliasObject = {};
 
-        listDir(path.join(projectRoot, './src'), 1).forEach((dir) => {
+        listDir(path.join(projectRoot, './src'), 1, []).forEach((dir) => {
             const {name, dirPath} = dir;
 
             aliasObject['/' + name] = dirPath;
@@ -717,7 +772,7 @@ class Builder {
      * 目前已把本builder的node_modules也引入
      * 好处是：把构建器放在 ./feflow 目录下，多个项目可以公用一个构建器，便于构建器的增量更新和统一升级
      */
-    static setResolveLoaderPath(runtime) {
+    static setResolveLoaderPath(runtime?: string): object {
         const jbRuntime = runtime || 'runtime-now-6';
         const resolveLoaderPath = path.join(osenv.home(), './.feflow/node_modules');
         // Loader在捷豹平台的查找路径
@@ -733,4 +788,4 @@ class Builder {
     }
 }
 
-module.exports = Builder;
+export default Builder;

@@ -1,22 +1,21 @@
-'use strict';
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 class Config {
     /**
      * @function getPath
      * @desc     Find feflow.json file
      */
-    static getPath(filename) {
-        let currDir = process.cwd();
+    static getPath(filename: string): string {
+        let currDir: string = process.cwd();
 
         while (!fs.existsSync(path.join(currDir, filename))) {
             currDir = path.join(currDir, '../');
 
             // unix跟目录为/， win32系统根目录为 C:\\格式的
             if (currDir === '/' || /^[a-zA-Z]:\\$/.test(currDir)) {
-                return false;
+                return '';
             }
         }
 
@@ -27,7 +26,7 @@ class Config {
      * @function getBuildConfig
      * @desc     Find builder type in feflow.json
      */
-    static getBuildConfig() {
+    static getBuildConfig(){
         let builderOptions;
 
         if (Config.getPath('feflow.json')) {
@@ -45,7 +44,8 @@ class Config {
             builderOptions = feflowCfg.builderOptions;
 
             if (!builderOptions) {
-                console.error('请确保feflow.js配置包含builderOptions字段，且内容不为空')
+                console.error('请确保feflow.js配置包含builderOptions字段，且内容不为空');
+                return {};
             }
 
             return builderOptions;
@@ -57,13 +57,15 @@ class Config {
             builderOptions = feflowCfg.builderOptions;
 
             if (!builderOptions) {
-              console.error('请确保feflow.js配置包含builderOptions字段，且内容不为空')
+              console.error('请确保feflow.js配置包含builderOptions字段，且内容不为空');
+                return {};
             }
             return builderOptions;
         } else {
             console.error('未找到 feflow 配置文件 feflow.json 或者 feflow.js');
+            return {};
         }
     }
 }
 
-module.exports = Config;
+export default Config;
