@@ -1,3 +1,14 @@
+<a name="0.0.12"></a>
+## [0.0.12](https://github.com/iv-web/builder-webpack/compare/v0.0.11...v0.0.12) (2019-03-25)
+
+
+### Features
+
+* specify babelrc ([7fb8270](https://github.com/iv-web/builder-webpack/commit/7fb8270))
+* 支持 Less 热更新 ([3f8ca63](https://github.com/iv-web/builder-webpack/commit/3f8ca63))
+
+
+
 <a name="0.0.11"></a>
 ## [0.0.11](https://github.com/iv-web/builder-webpack/compare/v0.0.10...v0.0.11) (2019-01-25)
 
