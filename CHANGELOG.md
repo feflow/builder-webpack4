@@ -1,3 +1,23 @@
+<a name="0.0.13"></a>
+## [0.0.13](https://github.com/feflow/builder-webpack4/compare/v0.1.12...v0.0.13) (2019-04-24)
+
+
+### Bug Fixes
+
+* build code ([b91e68f](https://github.com/feflow/builder-webpack4/commit/b91e68f))
+* pass test code ([875490f](https://github.com/feflow/builder-webpack4/commit/875490f))
+* 设计走查 ([8b8eea9](https://github.com/feflow/builder-webpack4/commit/8b8eea9))
+* 调试构建 ([66f50a0](https://github.com/feflow/builder-webpack4/commit/66f50a0))
+* 锁住html-webpack-include-assets-plugin的版本号 ([a8c07f5](https://github.com/feflow/builder-webpack4/commit/a8c07f5))
+
+
+### Features
+
+* add builderOptions param ([d53be19](https://github.com/feflow/builder-webpack4/commit/d53be19))
+* change code to ts ([3ad2284](https://github.com/feflow/builder-webpack4/commit/3ad2284))
+
+
+
 <a name="0.0.12"></a>
 ## [0.0.12](https://github.com/iv-web/builder-webpack/compare/v0.0.11...v0.0.12) (2019-03-25)
 
