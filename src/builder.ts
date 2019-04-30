@@ -44,6 +44,7 @@ export interface BuilderOptions {
     minifyJS?: boolean,
     inlineCSS: boolean,
     usePx2rem: boolean,
+    useSri: boolean,
     "remUnit": number,
     remPrecision: number,
     inject: boolean,
