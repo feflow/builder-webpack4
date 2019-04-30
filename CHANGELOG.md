@@ -1,3 +1,13 @@
+<a name="0.0.14"></a>
+## [0.0.14](https://github.com/feflow/builder-webpack4/compare/v0.0.13...v0.0.14) (2019-04-30)
+
+
+### Features
+
+* 设置可以禁用SRI ([208cd4b](https://github.com/feflow/builder-webpack4/commit/208cd4b))
+
+
+
 <a name="0.0.13"></a>
 ## [0.0.13](https://github.com/feflow/builder-webpack4/compare/v0.1.12...v0.0.13) (2019-04-24)
 
