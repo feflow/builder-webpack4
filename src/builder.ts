@@ -281,8 +281,10 @@ class Builder {
             prodPlugins.push(new HTMLInlineCSSWebpackPlugin());
         }
 
-        // 给生成出来的js bundle增加跨域头(cross-origin)，便于错误日志记录
-        prodPlugins.push(this.setSriPlugin());
+        if (options.useSri !== false) {
+            // 给生成出来的js bundle增加跨域头(cross-origin)，便于错误日志记录
+            prodPlugins.push(this.setSriPlugin());
+        }
 
         prodPlugins.push(this.setOffline(assetsPrefix, htmlPrefix, cdnUrl, serverUrl, domain, cdn, product, options.outDir));
 
