@@ -707,7 +707,7 @@ class Builder {
                     // 去掉 业务 js 文件的 ?_bid=152
                     source = source.replace(/\?_bid=152/g, '');
                     // 去掉业务 js 上的 integrity 属性
-                    source = source.replace(/(<script.*)integrity=".*?"/, '$1');
+                    source = source.replace(/(<script.*)integrity=".*?"/g, '$1');
                     // 注入离线包的版本号. pack
                     const inject = {
                         version: Date.now()

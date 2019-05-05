@@ -1,6 +1,6 @@
 {
   "name": "builder-webpack4",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "webpack项目构建器.",
   "main": "lib/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "configs": {
-    "compatibleVersion": ">=0.0.14"
+    "compatibleVersion": ">=0.0.15"
   },
   "keywords": [
     "webpack",
@@ -65,7 +65,7 @@
     "webpack": "^4.20.2",
     "webpack-dev-middleware": "^3.4.0",
     "webpack-hot-middleware": "^2.22.3",
-    "webpack-subresource-integrity": "^1.3.1",
+    "webpack-subresource-integrity": "1.1.0",
     "html-webpack-include-assets-plugin": "1.0.7"
   },
   "devDependencies": {
