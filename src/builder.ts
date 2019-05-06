@@ -157,7 +157,8 @@ class Builder {
         // 抽离公共js
         // devPlugins.push(this.setCommonsChunkPlugin());
         // 多页面打包
-        const {newEntry, htmlWebpackPlugins, cssInlinePlugins} = this.setMultiplePage(devConfig.entry, false, options.inject, options.inlineCSS, '', '');
+        // 开发环境不使用inlineCss，保证css热更新功能
+        const {newEntry, htmlWebpackPlugins, cssInlinePlugins} = this.setMultiplePage(devConfig.entry, false, options.inject, false, '', '');
         devPlugins = devPlugins.concat(htmlWebpackPlugins, cssInlinePlugins);
 
         devConfig.entry = newEntry;
