@@ -19,7 +19,7 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import StringReplaceWebpackPlugin from 'string-replace-webpack-plugin';
 import HTMLInlineCSSWebpackPlugin from 'html-inline-css-webpack-plugin';
-
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import {deepCopy, listDir, merge, isEmpty} from './util';
 import Config from './config';
 
@@ -246,6 +246,7 @@ class Builder {
         prodPlugins.push(new StringReplaceWebpackPlugin());
         // 设置提取CSS为一个单独的文件的插件
         prodPlugins.push(this.setMiniCssExtractPlugin(true, ''));
+        prodPlugins.push(this.setOptimizeCssAssetsPlugin());
         if (options.minifyJS) {
             // 压缩JS
             prodPlugins.push(new UglifyJsPlugin({
@@ -576,6 +577,13 @@ class Builder {
 
         return new MiniCssExtractPlugin({
             filename: `${filename}[name]${hash}.css`
+        });
+    }
+
+    static setOptimizeCssAssetsPlugin() {
+        return new OptimizeCssAssetsPlugin({
+            assetNameRegExp: /\.css$/g,
+            cssProcessor: require('cssnano')
         });
     }
 
