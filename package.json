@@ -54,6 +54,7 @@
     "offline-webpack-plugin": "0.1.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "osenv": "^0.1.5",
+    "portfinder": "^1.0.20",
     "postcss-loader": "^3.0.0",
     "px2rem-loader": "^0.1.7",
     "raw-loader": "^0.5.1",
