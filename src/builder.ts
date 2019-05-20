@@ -158,13 +158,9 @@ class Builder {
         // 抽离公共js
         // devPlugins.push(this.setCommonsChunkPlugin());
         // 多页面打包
-        const {newEntry, htmlWebpackPlugins} = this.setMultiplePage(devConfig.entry, false, options.inject, false, '', '');
-        devPlugins = devPlugins.concat(htmlWebpackPlugins);
-
-        // Inline 生成出来的css
-        if (options.inlineCSS) {
-            devPlugins.push(new HTMLInlineCSSWebpackPlugin());
-        }
+        // 开发环境不使用inlineCss，保证css热更新功能
+        const {newEntry, htmlWebpackPlugins, cssInlinePlugins} = this.setMultiplePage(devConfig.entry, false, options.inject, false, '', '');
+        devPlugins = devPlugins.concat(htmlWebpackPlugins, cssInlinePlugins);
 
         devConfig.entry = newEntry;
         // 开发阶段增加sourcemap.
@@ -274,14 +270,10 @@ class Builder {
          */
         //prodPlugins.push(this.setCommonsChunkPlugin());
         // 支持Fis3的 inline 语法糖 多页面打包, 默认压缩html
-        const {newEntry, htmlWebpackPlugins} = this.setMultiplePage(prodConfig.entry, options.minifyHTML, options.inject, options.inlineCSS, assetsPrefix, htmlPrefix);
+        const {newEntry, htmlWebpackPlugins, cssInlinePlugins} = this.setMultiplePage(prodConfig.entry, options.minifyHTML, options.inject, options.inlineCSS, assetsPrefix, htmlPrefix);
 
-        prodPlugins = prodPlugins.concat(htmlWebpackPlugins);
+        prodPlugins = prodPlugins.concat(htmlWebpackPlugins, cssInlinePlugins);
 
-        // Inline 生成出来的css
-        if (options.inlineCSS) {
-            prodPlugins.push(new HTMLInlineCSSWebpackPlugin());
-        }
 
         if (options.useSri !== false) {
             // 给生成出来的js bundle增加跨域头(cross-origin)，便于错误日志记录
@@ -621,6 +613,7 @@ class Builder {
     static setMultiplePage(entries: string | object, minifyHtml: boolean, inject: boolean, _inlineCSS: boolean, _assetsPrefix: string, htmlPrefix?: string) {
         const newEntry = {};
         const htmlWebpackPlugins: Array<any> = [];
+        const cssInlinePlugins: Array<any> = [];
 
         Object
             .keys(entries)
@@ -661,9 +654,21 @@ class Builder {
                         }
                         : false
                 }));
+
+                // Inline 生成出来的css
+                if (_inlineCSS) {
+                    let pageName = entry.split(path.sep).pop();
+                    if (pageName) {
+                        cssInlinePlugins.push(new HTMLInlineCSSWebpackPlugin({
+                            filter(fileName) {
+                                return new RegExp(`^${pageName}`).test(fileName) || new RegExp(`${pageName}\.html$`).test(fileName);
+                            }
+                        }));
+                    }
+                }
             });
 
-        return {newEntry, htmlWebpackPlugins};
+        return {newEntry, htmlWebpackPlugins, cssInlinePlugins};
     }
 
     /**
