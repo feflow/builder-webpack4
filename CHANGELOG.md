@@ -1,3 +1,19 @@
+<a name="0.0.18"></a>
+## [0.0.18](https://github.com/feflow/builder-webpack4/compare/v0.0.17...v0.0.18) (2019-05-20)
+
+
+### Bug Fixes
+
+* 修改开发环境样式热更新无效 ([0de4be5](https://github.com/feflow/builder-webpack4/commit/0de4be5))
+* 多页构建inline css会inline到所有page ([c3a2761](https://github.com/feflow/builder-webpack4/commit/c3a2761))
+
+
+### Features
+
+* 开发端口被占用自动检查更新 ([c085ec9](https://github.com/feflow/builder-webpack4/commit/c085ec9))
+
+
+
 <a name="0.0.17"></a>
 ## [0.0.17](https://github.com/feflow/builder-webpack4/compare/v0.0.16...v0.0.17) (2019-05-20)
 
