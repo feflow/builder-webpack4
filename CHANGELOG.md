@@ -1,3 +1,10 @@
+<a name="0.0.17"></a>
+## [0.0.17](https://github.com/feflow/builder-webpack4/compare/v0.0.16...v0.0.17) (2019-05-20)
+
+### Features
+
+* 开发端口被占用自动检查更新 ([98f3e6a](https://github.com/feflow/builder-webpack4/commit/98f3e6a))
+
 <a name="0.0.16"></a>
 ## [0.0.16](https://github.com/feflow/builder-webpack4/compare/v0.0.15...v0.0.16) (2019-05-20)
 
