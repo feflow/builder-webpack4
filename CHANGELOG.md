@@ -1,3 +1,14 @@
+<a name="0.0.16"></a>
+## [0.0.16](https://github.com/feflow/builder-webpack4/compare/v0.0.15...v0.0.16) (2019-05-20)
+
+
+### Bug Fixes
+
+* 修复 inline CSS 未压缩的 bug ([9ebd9ef](https://github.com/feflow/builder-webpack4/commit/9ebd9ef))
+* 锁住webpack-subresouce版本，避免integrity=null的问题 ([1fe4095](https://github.com/feflow/builder-webpack4/commit/1fe4095))
+
+
+
 <a name="0.0.14"></a>
 ## [0.0.14](https://github.com/feflow/builder-webpack4/compare/v0.0.13...v0.0.14) (2019-04-30)
 
