@@ -657,7 +657,7 @@ class Builder {
 
                 // Inline 生成出来的css
                 if (_inlineCSS) {
-                    let pageName = entry.split(path.sep).pop();
+                    let pageName = entry.split('/').pop();
                     if (pageName) {
                         cssInlinePlugins.push(new HTMLInlineCSSWebpackPlugin({
                             filter(fileName) {
