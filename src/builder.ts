@@ -657,11 +657,16 @@ class Builder {
 
                 // Inline 生成出来的css
                 if (_inlineCSS) {
-                    let pageName = entry.split('/').pop();
+                    let pageName = path.normalize(entry).split(path.sep).pop();
                     if (pageName) {
                         cssInlinePlugins.push(new HTMLInlineCSSWebpackPlugin({
                             filter(fileName) {
-                                return new RegExp(`^${pageName}`).test(fileName) || new RegExp(`${pageName}\.html$`).test(fileName);
+                                let cssFileName = fileName;
+                                if (/\.css$/.test(fileName)) {
+                                    // file的hash默认是8个，如果另外定义数量请注意修改这里的截取位置（MiniCssExtractPlugin中）
+                                    cssFileName = fileName.slice(0, fileName.length - 13);
+                                }
+                                return (pageName === cssFileName) || new RegExp(`${pageName}\.html$`).test(fileName);
                             }
                         }));
                     }
