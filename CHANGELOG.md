@@ -1,3 +1,67 @@
+<a name="0.0.18"></a>
+## [0.0.18](https://github.com/feflow/builder-webpack4/compare/v0.0.17...v0.0.18) (2019-05-20)
+
+
+### Bug Fixes
+
+* 修改开发环境样式热更新无效 ([0de4be5](https://github.com/feflow/builder-webpack4/commit/0de4be5))
+* 多页构建inline css会inline到所有page ([c3a2761](https://github.com/feflow/builder-webpack4/commit/c3a2761))
+
+
+### Features
+
+* 开发端口被占用自动检查更新 ([c085ec9](https://github.com/feflow/builder-webpack4/commit/c085ec9))
+
+
+
+<a name="0.0.17"></a>
+## [0.0.17](https://github.com/feflow/builder-webpack4/compare/v0.0.16...v0.0.17) (2019-05-20)
+
+### Features
+
+* 开发端口被占用自动检查更新 ([98f3e6a](https://github.com/feflow/builder-webpack4/commit/98f3e6a))
+
+<a name="0.0.16"></a>
+## [0.0.16](https://github.com/feflow/builder-webpack4/compare/v0.0.15...v0.0.16) (2019-05-20)
+
+
+### Bug Fixes
+
+* 修复 inline CSS 未压缩的 bug ([9ebd9ef](https://github.com/feflow/builder-webpack4/commit/9ebd9ef))
+* 锁住webpack-subresouce版本，避免integrity=null的问题 ([1fe4095](https://github.com/feflow/builder-webpack4/commit/1fe4095))
+
+
+
+<a name="0.0.14"></a>
+## [0.0.14](https://github.com/feflow/builder-webpack4/compare/v0.0.13...v0.0.14) (2019-04-30)
+
+
+### Features
+
+* 设置可以禁用SRI ([208cd4b](https://github.com/feflow/builder-webpack4/commit/208cd4b))
+
+
+
+<a name="0.0.13"></a>
+## [0.0.13](https://github.com/feflow/builder-webpack4/compare/v0.1.12...v0.0.13) (2019-04-24)
+
+
+### Bug Fixes
+
+* build code ([b91e68f](https://github.com/feflow/builder-webpack4/commit/b91e68f))
+* pass test code ([875490f](https://github.com/feflow/builder-webpack4/commit/875490f))
+* 设计走查 ([8b8eea9](https://github.com/feflow/builder-webpack4/commit/8b8eea9))
+* 调试构建 ([66f50a0](https://github.com/feflow/builder-webpack4/commit/66f50a0))
+* 锁住html-webpack-include-assets-plugin的版本号 ([a8c07f5](https://github.com/feflow/builder-webpack4/commit/a8c07f5))
+
+
+### Features
+
+* add builderOptions param ([d53be19](https://github.com/feflow/builder-webpack4/commit/d53be19))
+* change code to ts ([3ad2284](https://github.com/feflow/builder-webpack4/commit/3ad2284))
+
+
+
 <a name="0.0.12"></a>
 ## [0.0.12](https://github.com/iv-web/builder-webpack/compare/v0.0.11...v0.0.12) (2019-03-25)
 
