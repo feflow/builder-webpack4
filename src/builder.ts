@@ -20,7 +20,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import StringReplaceWebpackPlugin from 'string-replace-webpack-plugin';
 import HTMLInlineCSSWebpackPlugin from 'html-inline-css-webpack-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import {deepCopy, listDir, merge, isEmpty} from './util';
+import {deepCopy, listDir, merge, isEmpty, getCSSModulesLocalIdent} from './util';
 import Config from './config';
 
 // 当前运行的时候的根目录
@@ -134,8 +134,12 @@ class Builder {
         devRules.push(this.setImgRule(false));
         // 设置CSS解析规则
         devRules.push(this.setCssRule());
-        // 设置Less解析规则，开发环境不压缩CSS
-        devRules.push(this.setLessRule(false, options.usePx2rem, options.remUnit, options.remPrecision));
+        // 设置使用CSS Modules的CSS解析规则
+        devRules.push(this.setCssModulesRule());
+        // 设置Less解析规则，开发环境开启css-hot-loader
+        devRules.push(this.setLessRule(true, options.usePx2rem, options.remUnit, options.remPrecision));
+        // 设置使用CSS Modules的Less解析规则，开发环境开启css-hot-loader
+        devRules.push(this.setLessModulesRule(true, options.usePx2rem, options.remUnit, options.remPrecision));
         // 设置JS解析规则
         devRules.push(this.setJsRule(options.babelrcPath));
         // 设置TS解析规则
@@ -222,8 +226,12 @@ class Builder {
         prodRules.push(this.setImgRule(true, ''));
         // 设置CSS解析规则
         prodRules.push(this.setCssRule());
-        // 设置Less解析规则，生产环境默认压缩CSS
-        prodRules.push(this.setLessRule(true, options.usePx2rem, options.remUnit, options.remPrecision));
+        // 设置开启CSS Modules的CSS解析规则
+        prodRules.push(this.setCssModulesRule());
+        // 设置Less解析规则，生产环境不开启css-hot-loader
+        prodRules.push(this.setLessRule(false, options.usePx2rem, options.remUnit, options.remPrecision));
+        // 设置开启CSS Modules的Less解析规则，生产环境不开启css-hot-loader
+        prodRules.push(this.setLessModulesRule(false, options.usePx2rem, options.remUnit, options.remPrecision));
         // 设置JS解析规则
         prodRules.push(this.setJsRule(options.babelrcPath));
         // 设置TS解析规则
@@ -417,35 +425,65 @@ class Builder {
     }
 
     /**
+     * 样式文件正则
+     */
+    static cssRegex = /\.css$/;
+    static cssModulesRegex = /\.module\.css$/;
+    static lessRegex = /\.less$/;
+    static lessModulesRegex = /\.module\.less$/;
+
+    /**
      * 设置CSS解析规则
      */
     static setCssRule() {
         return {
-            test: /\.css$/,
+            test: Builder.cssRegex,
+            exclude: Builder.cssModulesRegex,
             use: ['style-loader', 'css-loader']
+        }
+    }
+
+    /**
+     * 设置使用CSS Modules的CSS解析规则
+     */
+    static setCssModulesRule() {
+        return {
+            test: Builder.cssModulesRegex,
+            use: [
+                'style-loader',
+                {
+                    loader: 'css-loader',
+                    options: {
+                        modules: true,
+                        getLocalIdent: getCSSModulesLocalIdent
+                    }
+                }
+            ]
         }
     }
 
     /**
      * 设置Less文件解析规则
      *
-     * @param minimize              是否压缩Css
+     * @param useHotLoader          是否使用css-hot-loader
      * @param usePx2rem             是否使用px2rem loader
      * @param remUnit               rem单位，默认75
      * @param remPrecision          rem精度, 默认8
      * @returns {{test: RegExp, use: *}}
      * @private
      */
-    static setLessRule(minimize: boolean, usePx2rem: boolean, remUnit: number, remPrecision: number) {
+    static setLessRule(useHotLoader: boolean, usePx2rem: boolean, remUnit: number, remPrecision: number) {
         const cssRuleArray: Array<LoaderObj>= [];
+
+        if (useHotLoader) {
+            cssRuleArray.push({
+                loader: 'css-hot-loader',
+                options: {}
+            });
+        }
 
         cssRuleArray.push({
             loader: MiniCssExtractPlugin.loader,
-            options: {}
-        });
-
-        cssRuleArray.push({
-            loader: 'css-hot-loader',
             options: {}
         });
 
@@ -455,16 +493,6 @@ class Builder {
             options: {}
         };
 
-        if (minimize) {
-            cssLoaderRule.options = {
-                minimize: true
-            };
-        } else {
-            cssLoaderRule.options = {
-                alias: this.setAlias()
-            }
-        }
-
         cssRuleArray.push(cssLoaderRule);
 
         // 如果开启px2rem，则加载px2rem-loader
@@ -472,8 +500,8 @@ class Builder {
             cssRuleArray.push({
                 loader: "px2rem-loader",
                 options: {
-                remUnit: remUnit || 75,
-                remPrecision: remPrecision || 8
+                    remUnit: remUnit || 75,
+                    remPrecision: remPrecision || 8
                 }
             });
         }
@@ -505,7 +533,87 @@ class Builder {
         });
 
         return {
-            test: /\.less$/,
+            test: Builder.lessRegex,
+            exclude: Builder.lessModulesRegex,
+            use: cssRuleArray
+        };
+    }
+
+    /**
+     * 设置使用CSS Modules的Less文件解析规则
+     *
+     * @param useHotLoader          是否使用css-hot-loader
+     * @param usePx2rem             是否使用px2rem loader
+     * @param remUnit               rem单位，默认75
+     * @param remPrecision          rem精度, 默认8
+     * @returns {{test: RegExp, use: *}}
+     * @private
+     */
+    static setLessModulesRule(useHotLoader: boolean, usePx2rem: boolean, remUnit: number, remPrecision: number) {
+        const cssRuleArray: Array<LoaderObj>= [];
+
+        if (useHotLoader) {
+            cssRuleArray.push({
+                loader: 'css-hot-loader',
+                options: {}
+            });
+        }
+
+        cssRuleArray.push({
+            loader: MiniCssExtractPlugin.loader,
+            options: {}
+        });
+
+        // 加载Css loader, 开启Css Modules
+        const cssLoaderRule = {
+            loader: "css-loader",
+            options: {
+                modules: true,
+                getLocalIdent: getCSSModulesLocalIdent
+            }
+        };
+
+        cssRuleArray.push(cssLoaderRule);
+
+        // 如果开启px2rem，则加载px2rem-loader
+        if (usePx2rem) {
+            cssRuleArray.push({
+                loader: "px2rem-loader",
+                options: {
+                    remUnit: remUnit || 75,
+                    remPrecision: remPrecision || 8
+                }
+            });
+        }
+
+        // css 前缀，兼容低版本浏览器
+        cssRuleArray.push({
+            loader: 'postcss-loader',
+            options: {
+                plugins: () => [
+                    require('autoprefixer')({
+                        browsers: ["last 2 version", "> 1%",  "iOS 7"]
+                    })
+                ]
+            }
+        });
+
+        // 雪碧图loader
+        cssRuleArray.push({
+            loader: "sprites-loader",
+            options: {}
+        });
+
+        // 加载解析less的less-loader
+        cssRuleArray.push({
+            loader: "less-loader",
+            options: {
+                includePaths: [path.join(projectRoot, "./src")]
+            }
+        });
+
+        return {
+            test: Builder.lessModulesRegex,
             use: cssRuleArray
         };
     }
