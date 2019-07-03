@@ -625,7 +625,6 @@ class Builder {
      * @private
      */
     static setJsRule(babelrcPath) {
-        let babelrcFilePath = babelrcPath && babelrcPath !== '' ? babelrcPath : './.babelrc';
         return {
             test: /\.jsx?$/, // 支持jsx
             include: path.join(projectRoot, 'src'),
@@ -639,7 +638,9 @@ class Builder {
                 {
                     loader: 'babel-loader',
                     options: {
-                        configFile: path.join(process.cwd(), babelrcFilePath) // 确保使用的是项目根目录的babel配置
+                        // babel默认查找根目录下的babel.config.js作为全局配置，除非在此选项强制指定；
+                        // 且此选项不会影响加载.babelrc，参考：https://babeljs.io/docs/en/options#configfile
+                        configFile: babelrcPath && path.join(process.cwd(), babelrcPath)
                     }
                 }
             ]
