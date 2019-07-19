@@ -15,6 +15,7 @@ Webpack 构建器, 适用于NOW直播业务和活动类型的项目构建
 - 对H5开发友好，默认集成 Rem 方案，解决适配问题
 - 支持多页面打包的开发方式
 - 支持less和typescript的文件打包
+- 支持pwa的接入
 
 ## 安装
 
@@ -48,7 +49,9 @@ $ npm install feflow-cli -g
         "remPrecision": 8,                                   // Rem 的精度，即 px 转换成了 rem 后的小数点后位数
         "inject": true,                                      // 打包生成的 js 文件是否自动注入到 html 文件 body 之后
         "port": 8001,                                        // 本地开发的 webpack 构建服务进程端口号
-        "babelrcPath": ""                                    // 指定.babelrc文件相对根目录的路径，默认为./.babelrc
+        "babelrcPath": "",                                   // 指定.babelrc文件相对根目录的路径，默认为./.babelrc
+        "ifPWA": false,                                      // 是否接入PWA
+        "pwaConfig": {},                                     // PWA配置参数，详情请见https://git.code.oa.com/pwa-plus/pwa-plus-plugin 
         "externals": [                                       // 基础框架不打入到 bundle 里面
             {
                 "module": "react",

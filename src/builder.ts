@@ -20,6 +20,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import StringReplaceWebpackPlugin from 'string-replace-webpack-plugin';
 import HTMLInlineCSSWebpackPlugin from 'html-inline-css-webpack-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import TencentPwaPlusPlugin from '@tencent/pwa-plus-plugin';
 import {deepCopy, listDir, merge, isEmpty} from './util';
 import Config from './config';
 
@@ -58,7 +59,9 @@ export interface BuilderOptions {
     externals?: Array<any>,
     runtime?: string,
     alias?: any,
-    babelrcPath?: string
+    babelrcPath?: string,
+    ifPWA: boolean,
+    pwaConfig: object
 }
 
 
@@ -194,6 +197,8 @@ class Builder {
      * @param {String}  options.inject                  是否注入chunks
      * @param {Boolean}  options.inlineCSS              是否注入inline打包出来的css
      * @param {String}  options.babelrcPath             指定babelrc配置路径
+     * @param {Boolean}  options.ifPWA                  是否接入pwa
+     * @param {Object}   options.pwaConfig              接入pwa的参数
      * @example
      */
     static createProdConfig(options: BuilderOptions): BaseConfig {
@@ -260,6 +265,21 @@ class Builder {
                 parallel: true
             }));
         }
+        // 是否接入pwa
+        if(options.ifPWA) {
+            var pwaConfig = options.pwaConfig;
+            prodPlugins.push(new TencentPwaPlusPlugin({
+                pid: pwaConfig.pid,
+                cacheName: pwaConfig.cacheName,
+                web: pwaConfig.web,
+                cdn: pwaConfig.cdn,
+                cacheFirst: pwaConfig.cacheFirst,
+                staleWhileRevalidate: pwaConfig.staleWhileRevalidate,
+                include: pwaConfig.include,
+                exclude: pwaConfig.exclude
+            }))
+        }
+
         if (options.useReact !== false) {
             // React, react-dom 通过cdn引入
             prodPlugins.push(this.setExternalPlugin(options.externals));
