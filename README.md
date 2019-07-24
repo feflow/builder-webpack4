@@ -234,7 +234,7 @@ module.exports = function (api) {
 * CSS Modules官网：https://github.com/css-modules/css-modules
 * babel-plugin-react-css-modules：https://github.com/gajus/babel-plugin-react-css-modules
 * **[荐]**关于CSS Modules用法的详细介绍（内网）：[http://km.oa.com/group/29185/articles/show/382256#3.%20CSS%20Modules%E4%BD%BF%E7%94%A8%E7%BB%8F%E9%AA%8C](http://km.oa.com/group/29185/articles/show/382256#3. CSS Modules使用经验)
-* **[荐]**收集了CSS Modules + babel-plugin-react-css-modules常用示例的仓库（内网）：https://git.code.oa.com/alexqxxu/CSS-Modules-Demo
+* **[荐]**收集了CSS Modules + babel-plugin-react-css-modules常用示例的仓库（内网）：https://git.code.oa.com/alexqxxu/CSS-Modules-Demo 
 
 ### 测试
 
