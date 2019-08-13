@@ -347,7 +347,7 @@ class Builder {
         return {
             test: /\.(png|svg|jpg|gif|blob)$/,
             use: {
-                loader: 'file-loader',
+                loader: 'inline-file-loader',
                 options: {
                     name: `${filename}img/[name]${hash}.[ext]`
                 }
