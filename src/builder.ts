@@ -294,6 +294,7 @@ class Builder {
         prodConfig.output = this.setOutput(true, assetsPrefix, cdnUrl + '/', options.outDir);
         prodConfig.module.rules = prodRules;
         prodConfig.plugins = prodPlugins;
+        prodConfig.bail = true;
         prodConfig.resolve.alias = this.setAlias(options.alias);
         prodConfig.resolve.extensions = ['.js', '.jsx', '.ts', '.tsx', '.json'];
         // 设置 loader 的npm包查找的相对路径，此处设置在全局的 .feflow 目录下
