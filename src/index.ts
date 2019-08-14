@@ -15,8 +15,12 @@ function builderWebpack4 (cmd: string) {
       Server(devConfig);
   } else if (cmd === 'build') {
     webpack(prodConfig, (err: any, stats: any) => {
-      if (err) console.log(err);
-      console.log(stats.toString({
+      if (err) {
+        console.log(err);
+        process.exit(2);
+      }
+
+      console.log(stats && stats.toString({
         chunks: false,
         colors: true,
         children: false
