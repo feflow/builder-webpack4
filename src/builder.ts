@@ -253,20 +253,7 @@ class Builder {
         prodPlugins.push(this.setOptimizeCssAssetsPlugin());
         if (options.minifyJS) {
             // 压缩JS
-            prodPlugins.push(new UglifyJsPlugin({
-                uglifyOptions: {
-                    warnings: false,
-                    parse: {},
-                    compress: {},
-                    mangle: true,
-                    output: null,
-                    toplevel: false,
-                    nameCache: null,
-                    ie8: false,
-                    keep_fnames: false
-                },
-                parallel: true
-            }));
+            // webpack4 mode=production 下会默认启动 terser-webpack-plugin
         }
         if (options.useReact !== false) {
             // React, react-dom 通过cdn引入
@@ -513,7 +500,7 @@ class Builder {
             options: {
                 plugins: () => [
                     require('autoprefixer')({
-                        browsers: ["last 2 version", "> 1%",  "iOS 7"]
+                        overrideBrowserslist: ["last 2 version", "> 1%",  "iOS 7"]
                     })
                 ]
             }
