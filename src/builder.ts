@@ -22,6 +22,7 @@ import HTMLInlineCSSWebpackPlugin from 'html-inline-css-webpack-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import {deepCopy, listDir, merge, isEmpty} from './util';
 import Config from './config';
+import PWAPlusPlugin from '@tencent/pwa-plus-plugin';
 
 // 当前运行的时候的根目录
 let projectRoot: string = Config.getPath('feflow.json');
@@ -58,7 +59,9 @@ export interface BuilderOptions {
     externals?: Array<any>,
     runtime?: string,
     alias?: any,
-    babelrcPath?: string
+    babelrcPath?: string,
+    shouldPWA?: boolean,
+    pwaConfig?: object
 }
 
 
@@ -120,6 +123,7 @@ class Builder {
      * @param {String}  options.inject                  是否注入chunks
      * @param {Boolean} options.inlineCSS              是否注入inline打包出来的css
      * @param {String}  options.babelrcPath             指定babelrc配置路径
+     * @param {Boolean} options.shouldPWA             是否接入pwa
      *
      * @example
      */
@@ -148,7 +152,10 @@ class Builder {
         devPlugins.push(new StringReplaceWebpackPlugin());
         // 设置提取CSS为一个单独的文件的插件
         devPlugins.push(this.setMiniCssExtractPlugin(false, ''));
-
+        // 接入pwa
+        if (options.shouldPWA) {
+            devPlugins.push(new PWAPlusPlugin(options.pwaConfig));
+        }
         if (options.useReact !== false) {
             // React, react-dom 通过cdn引入
             devPlugins.push(this.setExternalPlugin(options.externals));
@@ -194,6 +201,8 @@ class Builder {
      * @param {String}  options.inject                  是否注入chunks
      * @param {Boolean}  options.inlineCSS              是否注入inline打包出来的css
      * @param {String}  options.babelrcPath             指定babelrc配置路径
+     * @param {Boolean}  options.shouldPWA              是否接入pwa
+     * @param {Object}  options.pwaConfig               pwa相关配置信息
      * @example
      */
     static createProdConfig(options: BuilderOptions): BaseConfig {
@@ -263,6 +272,10 @@ class Builder {
         if (options.useReact !== false) {
             // React, react-dom 通过cdn引入
             prodPlugins.push(this.setExternalPlugin(options.externals));
+        }
+        // 接入pwa
+        if(options.shouldPWA) {
+            prodPlugins.push(new PWAPlusPlugin(options.pwaConfig));
         }
         // 抽离公共js
         /**

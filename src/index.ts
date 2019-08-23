@@ -7,13 +7,15 @@ export interface BaseConfig {
 }
 
 const builderOptions = Config.getBuildConfig();
-const devConfig: BaseConfig = Builder.createDevConfig(builderOptions);
-const prodConfig: BaseConfig = Builder.createProdConfig(builderOptions);
+let devConfig: BaseConfig;
+let prodConfig: BaseConfig;
 
 function builderWebpack4 (cmd: string) {
   if (cmd === 'dev') {
+      devConfig = Builder.createDevConfig(builderOptions)
       Server(devConfig);
   } else if (cmd === 'build') {
+    prodConfig = Builder.createProdConfig(builderOptions)
     webpack(prodConfig, (err: any, stats: any) => {
       if (err) console.log(err);
       console.log(stats.toString({

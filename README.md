@@ -48,7 +48,27 @@ $ npm install feflow-cli -g
         "remPrecision": 8,                                   // Rem 的精度，即 px 转换成了 rem 后的小数点后位数
         "inject": true,                                      // 打包生成的 js 文件是否自动注入到 html 文件 body 之后
         "port": 8001,                                        // 本地开发的 webpack 构建服务进程端口号
-        "babelrcPath": ""                                    // 指定.babelrc文件相对根目录的路径，默认为./.babelrc
+        "babelrcPath": "",                                   // 指定.babelrc文件相对根目录的路径，默认为./.babelrc
+        'shouldPWA': true,                                   // 是否接入pwa
+        'pwaConfig': {                                       // 接入pwa相关配置文件
+            dev: isFeflowDev,
+            pid: 12345,
+            swDest: isFeflowDev ? './sw.js' : 'webserver/pwa-test/sw.js',
+            cacheName: 'now-h5-pwa-test',
+            web: 'now.qq.com',
+            cdn: isFeflowDev ? 'now.qq.com' : '//11.url.cn/',
+            product: isFeflowDev ? '' : 'now',
+            moduleName: isFeflowDev ? '' : 'h5',
+            bizName: isFeflowDev ? '' : 'pwa-test',
+            cacheFirst: [/\.url\.cn\/(.*)\.(js|css)/],
+            exclude: [/\.(zip|png|jpe?g|gif|svg|webp|blob)/],
+            filePathFunc: file => { // 自定义文件生成路径函数
+                if (isFeflowDev && /\.png$/.test(file)) {
+                    return `img/${file}`;
+                }
+                return file;
+            }
+        },
         "externals": [                                       // 基础框架不打入到 bundle 里面
             {
                 "module": "react",

@@ -34,6 +34,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.0.0",
+    "@tencent/pwa-plus-helper": "^0.3.29",
     "autoprefixer": "^9.4.4",
     "babel-loader": "^8.0.0",
     "clean-webpack-plugin": "^0.1.19",
@@ -71,6 +72,7 @@
     "webpack-subresource-integrity": "1.1.0"
   },
   "devDependencies": {
+    "@tencent/pwa-plus-plugin": "^0.3.29",
     "@types/express": "^4.16.1",
     "@types/glob": "^7.1.1",
     "@types/node": "^11.13.6",
