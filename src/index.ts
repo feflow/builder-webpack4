@@ -12,8 +12,8 @@ let prodConfig: BaseConfig;
 
 function builderWebpack4 (cmd: string) {
   if (cmd === 'dev') {
-      devConfig = Builder.createDevConfig(builderOptions)
-      Server(devConfig);
+    devConfig = Builder.createDevConfig(builderOptions)
+    Server(devConfig);
   } else if (cmd === 'build') {
     prodConfig = Builder.createProdConfig(builderOptions)
     webpack(prodConfig, (err: any, stats: any) => {
