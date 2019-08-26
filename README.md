@@ -51,7 +51,7 @@ $ npm install feflow-cli -g
         "babelrcPath": "",                                   // 指定.babelrc文件相对根目录的路径，默认为./.babelrc
         'shouldPWA': true,                                   // 是否接入pwa
         'pwaConfig': {                                       // 接入pwa相关配置文件
-            dev: isFeflowDev,
+            dev: isFeflowDev,                                // isFeflowDev为接入pwa生成feflow.js中的一个参数
             pid: 12345,
             swDest: isFeflowDev ? './sw.js' : 'webserver/pwa-test/sw.js',
             cacheName: 'now-h5-pwa-test',
