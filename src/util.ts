@@ -4,6 +4,12 @@ import fs from 'fs';
 import path from 'path';
 import loaderUtils from 'loader-utils';
 
+
+export enum BuilderType {
+    dev = "dev",
+    build = "build"
+}
+
 /**
  * 深拷贝, Object.assign()只有第一层是深拷贝, 第二层之后仍然是 浅拷贝
  * @param source
@@ -126,3 +132,20 @@ export const getCSSModulesLocalIdent = (
     // remove the .module that appears in every classname when based on the file.
     return className.replace('.module_', '_');
 };
+
+/**
+ * 增加builder作为子进程时的通信能力
+ * 目前有四条指令，分别对应build和dev时构建成功和失败的场景
+ * 
+ */
+export const postMessage = {
+    send(channel: BuilderType, data) {
+        process && process.send && process.send(JSON.stringify({ type: channel, data }));
+    },
+    error(type: BuilderType, msg?: any) {
+        this.send(`feflow:builder:${type}:error`, msg)
+    },
+    success(type: BuilderType, msg?: any) {
+        this.send(`feflow:builder:${type}:success`, msg)
+    }
+}
