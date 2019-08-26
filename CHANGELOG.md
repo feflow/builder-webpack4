@@ -1,3 +1,13 @@
+<a name="0.0.22"></a>
+## [0.0.22](https://github.com/feflow/builder-webpack4/compare/v0.0.21...v0.0.22) (2019-08-14)
+
+
+### Performance Improvements
+
+* 优化构建报错的中断抛出 err code逻辑 ([b8bc47c](https://github.com/feflow/builder-webpack4/commit/b8bc47c))
+
+
+
 <a name="0.0.18"></a>
 ## [0.0.18](https://github.com/feflow/builder-webpack4/compare/v0.0.17...v0.0.18) (2019-05-20)
 
