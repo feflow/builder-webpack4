@@ -1,3 +1,13 @@
+<a name="0.1.0"></a>
+# [0.1.0](https://github.com/feflow/builder-webpack4/compare/v0.0.25...v0.1.0) (2019-09-06)
+
+
+### Features
+
+* 增加 CSS Tree Shaking功能 ([2df6f7b](https://github.com/feflow/builder-webpack4/commit/2df6f7b))
+
+
+
 <a name="0.0.22"></a>
 ## [0.0.22](https://github.com/feflow/builder-webpack4/compare/v0.0.21...v0.0.22) (2019-08-14)
 
