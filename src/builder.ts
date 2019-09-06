@@ -17,7 +17,6 @@ import SriPlugin from 'webpack-subresource-integrity';
 import OfflineWebpackPlugin from 'offline-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-import PurgecssPlugin from 'purgecss-webpack-plugin';
 import StringReplaceWebpackPlugin from 'string-replace-webpack-plugin';
 import HTMLInlineCSSWebpackPlugin from 'html-inline-css-webpack-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
@@ -168,7 +167,6 @@ class Builder {
         // devPlugins.push(this.setCommonsChunkPlugin());
         // 多页面打包
         // 开发环境不使用inlineCss，保证css热更新功能
-        devPlugins.push(this.setCssTreeShaking());
 
         const {newEntry, htmlWebpackPlugins, cssInlinePlugins} = this.setMultiplePage(devConfig.entry, false, options.inject, false, '', '');
         devPlugins = devPlugins.concat(htmlWebpackPlugins, cssInlinePlugins);
@@ -266,8 +264,6 @@ class Builder {
             // React, react-dom 通过cdn引入
             prodPlugins.push(this.setExternalPlugin(options.externals));
         }
-
-        prodPlugins.push(this.setCssTreeShaking());
         // 抽离公共js
         /**
          * 这个地方应当支持配置
@@ -842,12 +838,6 @@ class Builder {
                 return source;
             }
         })
-    }
-
-    static setCssTreeShaking() {
-        return new PurgecssPlugin({
-            paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
-        });
     }
 
     /**
