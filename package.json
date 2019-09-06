@@ -1,6 +1,6 @@
 {
   "name": "builder-webpack4",
-  "version": "0.0.25",
+  "version": "0.1.0",
   "description": "webpack项目构建器.",
   "main": "lib/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "configs": {
-    "compatibleVersion": ">=0.0.25"
+    "compatibleVersion": ">=0.1.0"
   },
   "keywords": [
     "webpack",
@@ -57,6 +57,7 @@
     "osenv": "^0.1.5",
     "portfinder": "^1.0.20",
     "postcss-loader": "^3.0.0",
+    "purgecss-webpack-plugin": "^1.5.0",
     "px2rem-loader": "^0.1.7",
     "raw-loader": "^0.5.1",
     "replace-text-loader": "^0.2.1",
