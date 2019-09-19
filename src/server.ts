@@ -6,11 +6,13 @@ import webpackDevMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 import portfinder from 'portfinder';
 import Config from "./config";
+import { postMessage, BuilderType } from "./util";
+
 const builderOptions = Config.getBuildConfig();
 
 const app = express();
 export interface BuilderOptions {
-    [propName: string]: any;
+  [propName: string]: any;
 }
 
 export default (devConfig: BuilderOptions) => {
@@ -49,19 +51,21 @@ export default (devConfig: BuilderOptions) => {
 
   // Serve the files on port.
   portfinder.basePort = devConfig.devServer.port
-    portfinder.getPortPromise()
+  portfinder.getPortPromise()
     .then(newPort => {
-        if (devConfig.devServer.port !== newPort) {
-            console.log(`${devConfig.devServer.port}端口被占用，开启新端口${newPort}`)
+      if (devConfig.devServer.port !== newPort) {
+        console.log(`${devConfig.devServer.port}端口被占用，开启新端口${newPort}`)
+      }
+      app.listen(newPort, function (_, err) {
+        if (err) {
+          console.error(err);
+          postMessage.error(BuilderType.dev, {err});
         }
-        app.listen(newPort, function (_, err) {
-            if (err) {
-                console.error(err);
-            }
-            else {
-                console.log("Webpack server listening on port " + newPort + "\n" +
-                    ("Open http://127.0.0.1:" + newPort + " to checkout"));
-            }
-        });
+        else {
+          postMessage.success(BuilderType.dev,{port:newPort});
+          console.log("Webpack server listening on port " + newPort + "\n" +
+            ("Open http://127.0.0.1:" + newPort + " to checkout"));
+        }
+      });
     });
 };
