@@ -585,7 +585,7 @@ class Builder {
             options: {
                 plugins: () => [
                     require('autoprefixer')({
-                        browsers: ["last 2 version", "> 1%",  "iOS 7"]
+                        overrideBrowserslist: ["last 2 version", "> 1%",  "iOS 7"]
                     })
                 ]
             }
