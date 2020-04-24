@@ -1,6 +1,6 @@
 {
   "name": "builder-webpack4",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "webpack项目构建器.",
   "main": "lib/index.js",
   "scripts": {
@@ -49,6 +49,7 @@
     "html-webpack-include-assets-plugin": "1.0.7",
     "html-webpack-plugin": "4.0.0-beta.1",
     "inline-file-loader": "^0.2.0",
+    "istanbul-instrumenter-loader": "^3.0.1",
     "less": "3.8.0",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.3",

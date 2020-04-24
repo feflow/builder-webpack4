@@ -58,7 +58,9 @@ export interface BuilderOptions {
     externals?: Array<any>,
     runtime?: string,
     alias?: any,
-    babelrcPath?: string
+    babelrcPath?: string,
+    enableE2ETest: boolean,
+    devtool: string
 }
 
 
@@ -151,6 +153,14 @@ class Builder {
         // 设置字体解析规则
         devRules.push(this.setFontRule());
 
+        // 启用端对端测试的特殊模式
+        if (options.enableE2ETest) {
+            devRules.push(this.setE2ETestRule());
+            devConfig.devtool = 'sourcemap';
+        } else {
+            devConfig.devtool = 'inline-source-map';
+        }
+
         // 设置打包插件
         let devPlugins: Array<any> = [];
         devPlugins.push(new StringReplaceWebpackPlugin());
@@ -173,7 +183,6 @@ class Builder {
 
         devConfig.entry = newEntry;
         // 开发阶段增加sourcemap.
-        devConfig.devtool = 'inline-source-map';
         // 这里还是依然按照原来的配置，将静态资源用根目录伺服
         devConfig.output = this.setOutput(false, '', '/', options.outDir);
         devConfig.module.rules = devRules;
@@ -243,6 +252,14 @@ class Builder {
         prodRules.push(this.setTsRule());
         // 设置字体解析规则
         prodRules.push(this.setFontRule());
+
+        // 启用端对端测试的特殊模式
+        if (options.enableE2ETest) {
+            prodRules.push(this.setE2ETestRule());
+            prodConfig.devtool = 'sourcemap';
+        } else {
+            prodConfig.devtool = 'inline-source-map';
+        }
 
         // 设置打包插件
         let prodPlugins: Array<any> = [];
@@ -674,6 +691,23 @@ class Builder {
         });
     }
 
+    /**
+     * 设置端对端测试的一些规则
+     *
+     * @returns {Object}
+     * @private
+     */
+    static setE2ETestRule() {
+        return {
+            test: /\.js$/,
+            use: {
+                loader: 'istanbul-instrumenter-loader',
+                options: {esModules: true}
+            },
+            enforce: 'post',
+            exclude: /node_modules|.\spec\.js$/,
+        };
+    }
     static setOptimizeCssAssetsPlugin() {
         return new OptimizeCssAssetsPlugin({
             assetNameRegExp: /\.css$/g,
