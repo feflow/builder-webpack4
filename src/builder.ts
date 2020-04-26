@@ -59,6 +59,7 @@ export interface BuilderOptions {
     runtime?: string,
     alias?: any,
     babelrcPath?: string,
+    babelrc?:boolean,
     enableE2ETest: boolean,
     devtool: string
 }
@@ -147,7 +148,7 @@ class Builder {
         // 设置使用CSS Modules的Less解析规则，开发环境开启css-hot-loader
         devRules.push(this.setLessModulesRule(true, options.usePx2rem, options.remUnit, options.remPrecision));
         // 设置JS解析规则
-        devRules.push(this.setJsRule(options.babelrcPath));
+        devRules.push(this.setJsRule(options.babelrcPath, options.babelrc));
         // 设置TS解析规则
         devRules.push(this.setTsRule());
         // 设置字体解析规则
@@ -247,7 +248,7 @@ class Builder {
         // 设置开启CSS Modules的Less解析规则，生产环境不开启css-hot-loader
         prodRules.push(this.setLessModulesRule(false, options.usePx2rem, options.remUnit, options.remPrecision));
         // 设置JS解析规则
-        prodRules.push(this.setJsRule(options.babelrcPath));
+        prodRules.push(this.setJsRule(options.babelrcPath, options.babelrc));
         // 设置TS解析规则
         prodRules.push(this.setTsRule());
         // 设置字体解析规则
@@ -630,11 +631,11 @@ class Builder {
 
     /**
      * 设置Js文件解析规则, 此处使用happypack,多实例构建
-     *
+     * @param babelrc       是否
      * @returns {{test: RegExp, loader: string}}
      * @private
      */
-    static setJsRule(babelrcPath) {
+    static setJsRule(babelrcPath,babelrc: boolean = true) {
         return {
             test: /\.jsx?$/, // 支持jsx
             include: path.join(projectRoot, 'src'),
@@ -650,7 +651,9 @@ class Builder {
                     options: {
                         // babel默认查找根目录下的babel.config.js作为全局配置，除非在此选项强制指定；
                         // 且此选项不会影响加载.babelrc，参考：https://babeljs.io/docs/en/options#configfile
-                        configFile: babelrcPath && path.join(process.cwd(), babelrcPath)
+                        configFile: babelrcPath && path.join(process.cwd(), babelrcPath),
+                        // 是否搜索相关的babel类型的配置文件，并和现有的babel文件进行合并
+                        babelrc:babelrc
                     }
                 }
             ]
