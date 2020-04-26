@@ -631,7 +631,7 @@ class Builder {
 
     /**
      * 设置Js文件解析规则, 此处使用happypack,多实例构建
-     * @param babelrc       是否
+     * @param babelrc       是否搜索相关的babel类型的配置文件，并和现有的babel文件进行合并
      * @returns {{test: RegExp, loader: string}}
      * @private
      */
