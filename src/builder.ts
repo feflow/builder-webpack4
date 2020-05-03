@@ -258,8 +258,6 @@ class Builder {
         if (options.enableE2ETest) {
             prodRules.push(this.setE2ETestRule());
             prodConfig.devtool = 'sourcemap';
-        } else {
-            prodConfig.devtool = 'inline-source-map';
         }
 
         // 设置打包插件

@@ -1,6 +1,6 @@
 {
   "name": "builder-webpack4",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "webpack项目构建器.",
   "main": "lib/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "configs": {
-    "compatibleVersion": ">=0.1.6"
+    "compatibleVersion": ">=0.1.7"
   },
   "keywords": [
     "webpack",
