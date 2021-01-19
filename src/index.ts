@@ -29,6 +29,8 @@ function builderWebpack4(cmd: string) {
         colors: true,
         children: false
       }));
+
+      process.exit(0);
     });
   }
 }
